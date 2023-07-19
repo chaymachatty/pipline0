@@ -1,0 +1,47 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Informations générales sur le projet -->
+    <groupId>com.example</groupId>
+    <artifactId>mon-projet</artifactId>
+    <version>1.0.0</version>
+    <name>Mon Projet</name>
+    <description>Une description de mon projet Java</description>
+
+    <!-- Propriétés -->
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <!-- Dépendances -->
+    <dependencies>
+        <!-- Dépendance pour JUnit (par exemple) -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Autres dépendances ici -->
+    </dependencies>
+
+    <!-- Plugins -->
+    <build>
+        <plugins>
+            <!-- Plugin pour compiler le code source -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.9.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <!-- Autres plugins ici -->
+        </plugins>
+    </build>
+</project>
