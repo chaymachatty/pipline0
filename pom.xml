@@ -25,6 +25,7 @@
                 <version>${maven.compiler.plugin.version}</version>
             </plugin>
         </plugins>
+        <finalName> devops-pipline </finalName>
     </build>
 
 </project>
