@@ -4,6 +4,8 @@ pipeline {
     environment {
         // Set the M3_HOME variable with the correct path to Maven
         M3_HOME = "C:\\Program Files\\apache-maven-3.9.3"
+        DOCKER_USERNAME = 'chayma14' 
+        DOCKER_PASSWORD = 'chaymachatty14'
     }
 
     stages {
@@ -25,6 +27,16 @@ pipeline {
             bat 'docker build -t chayma14/devops-pipline .'
         }
     }
-}
+         }
+           stage('Push to Docker Hub') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId:'chayma14', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        bat "docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%"
+                    }
+                    bat "docker tag $DOCKER_USERNAME/devops-pipline $DOCKER_USERNAME/devops-pipline:latest"
+                    bat "docker push $DOCKER_USERNAME/devops-pipline:latest"
+                }
+            }
 
         }}
