@@ -18,4 +18,13 @@ pipeline {
                 // Use the M3_HOME variable to call Maven
                 bat "\"%M3_HOME%\\bin\\mvn\" clean package"
             }
-        }}}
+        }
+        stage('Build docker image') {
+             steps {
+        script {
+            bat 'docker build -t chayma14/devops-pipline .'
+        }
+    }
+}
+
+        }}
