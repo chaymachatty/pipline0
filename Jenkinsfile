@@ -21,12 +21,7 @@ pipeline {
                 bat "\"%M3_HOME%\\bin\\mvn\" clean package"
             }
         }
-         stage('Run Unit Tests') {
-            steps {
-                // Run the JUnit tests with Maven
-                bat 'mvn test'
-            }
-         }
+         
         stage('Build docker image') {
              steps {
         script {
