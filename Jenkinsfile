@@ -26,6 +26,12 @@ pipeline {
                 // Use the M3_HOME variable to call Maven for running tests
                 bat "\"%M3_HOME%\\bin\\mvn\" test"
             }
+            post {
+                always {
+                    // Archive test results
+                    junit '**/target/surefire-reports/*.xml'
+                }
+            }
       }
         stage('Build docker image') {
              steps {
