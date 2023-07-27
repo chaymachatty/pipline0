@@ -33,6 +33,19 @@ pipeline {
                 }
             }
       }
+      stage('Robot Framework Testing') {
+    steps {
+        // Run Robot Framework tests
+        bat "robot --outputdir robot-output C:\\Users\\hp\\Desktop\\pipline\\test.robot"
+    }
+    post {
+        always {
+            // Archive Robot Framework test results
+            junit 'robot-output/output.xml'
+        }
+    }
+}
+
         stage('Build docker image') {
              steps {
         script {
