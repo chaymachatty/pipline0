@@ -38,11 +38,7 @@ pipeline {
         // Run Robot Framework tests
         bat "robot --outputdir robot-output C:\\Users\\hp\\Desktop\\pipline\\test.robot"
     }
-    post {
-        always {
-            // Archive Robot Framework test results
-            junit 'robot-output/output.xml'
-        }
+  
     }
 }
 
