@@ -39,7 +39,8 @@ pipeline {
                 // Change directory to the path where the test file is located
                 dir('C:\\Users\\hp\\Desktop\\pipeline') {
                     // Run Robot Framework tests with the relative path to the test file and msedgedriver
-                    bat 'msedgedriver.exe --pythonpath C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages test.robot'
+                    bat 'C:\\Users\\hp\\Downloads\\edgedriver_win64\\msedgedriver.exe --pythonpath C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages test.robot'
+
                 }
             }
             post {
