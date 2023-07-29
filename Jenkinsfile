@@ -6,6 +6,11 @@ pipeline {
         M3_HOME = "C:\\Program Files\\apache-maven-3.9.3"
         DOCKER_USERNAME = 'chayma14' 
         DOCKER_PASSWORD = 'chaymachatty14'
+        ROBOT_PATH = "C:\\Users\\hp\\Desktop\\pipline\\test.robot"
+        PYTHON_PATH = "C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\python.exe"
+        EDGE_DRIVER_PATH = "C:\\Users\\hp\\Downloads\\edgedriver_win64\\msedgedriver.exe"
+    
+
     }
 
     stages {
@@ -34,34 +39,24 @@ pipeline {
                 }
             }
         }
-
-        stage('Install and Configure Robot Framework') {
+        stage('Run Robot Tests') {
             steps {
-                // Install Python and Robot Framework
-                bat 'choco install python3'
-                bat 'C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\pip.exe install --upgrade pip'
-                bat 'C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\pip.exe install robotframework'
+                // Install required Python packages (if not already installed)
+                bat "\"%PYTHON_PATH%\" -m pip install --upgrade robotframework"
+                bat "\"%PYTHON_PATH%\" -m pip install --upgrade robotframework-seleniumlibrary"
 
-                // Install WebDriverManager
-                bat 'C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\pip.exe install webdrivermanager'
-                bat 'C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\python.exe -m webdrivermanager firefox chrome --linkpath C:\\Users\\hp\\Downloads\\edgedriver_win64'
-            }
-        }
-
-        stage('Robot Framework Testing') {
-            steps {
-                // Run Robot Framework tests with the Edge browser
-                dir('C:\\Users\\hp\\Desktop\\pipline') {
-                    bat 'robot --outputdir robot-output --variable BROWSER:Edge --variable webdriver_path:"C:\\Users\\hp\\Downloads\\edgedriver_win64\\msedgedriver.exe" test.robot'
-                }
+                // Execute the Robot Framework tests
+                bat "\"%PYTHON_PATH%\" -m robot --variable BROWSER:edge --variable DRIVER_PATH:\"%EDGE_DRIVER_PATH%\" \"%ROBOT_PATH%\""
             }
             post {
                 always {
-                    // Archive test results
-                    junit 'C:\\Users\\hp\\Desktop\\pipline\\output.xml'
+                    // Archive Robot Framework test results
+                    junit '**/output.xml'
                 }
             }
         }
+
+        
 
         stage('Build docker image') {
             steps {
