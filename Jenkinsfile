@@ -37,10 +37,9 @@ pipeline {
    stage('Robot Framework Testing') {
     steps {
         // Run Robot Framework tests
-             bat 'C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\robot.exe --pythonpath C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages C:\\Users\\hp\\Desktop\\pipeline\\test.robot'
+              bat 'C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\robot.exe --pythonpath C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages test.robot'
+                }
             }
-    }
-
 
       stage('Build docker image') {
              steps {
