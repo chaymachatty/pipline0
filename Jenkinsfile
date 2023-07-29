@@ -38,6 +38,12 @@ pipeline {
                 }
             }
         }
+        stage('Verify WebDriver Execution') {
+    steps {
+        bat "start \"\" \"%EDGE_DRIVER_PATH%\""
+    }
+}
+
 
         stage('Run Robot Tests') {
             steps {
