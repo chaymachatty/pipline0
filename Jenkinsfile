@@ -48,7 +48,7 @@ pipeline {
             post {
                 always {
                     // Archive test results
-                    junit 'C:\\Users\\hp\\Desktop\\pipline\\robot-output\\output.xml'
+                    junit 'C:\\Users\\hp\\Desktop\\pipline\\output.xml'
                 }
             }
         }
