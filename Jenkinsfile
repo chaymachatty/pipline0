@@ -36,7 +36,7 @@ pipeline {
    stage('Robot Framework Testing') {
     steps {
         // Run Robot Framework tests
-        bat 'robot C:\\Users\\hp\\Desktop\\pipeline\\test.robot'
+        bat 'robot test.robot'
     }
 }
 
