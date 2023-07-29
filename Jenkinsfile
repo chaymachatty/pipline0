@@ -6,7 +6,6 @@ pipeline {
         M3_HOME = "C:\\Program Files\\apache-maven-3.9.3"
         DOCKER_USERNAME = 'chayma14' 
         DOCKER_PASSWORD = 'chaymachatty14'
-        
     }
 
     stages {
@@ -22,7 +21,8 @@ pipeline {
                 bat "\"%M3_HOME%\\bin\\mvn\" clean package"
             }
         }
-      stage('JUnit Test') {
+
+        stage('JUnit Test') {
             steps {
                 // Use the M3_HOME variable to call Maven for running tests
                 bat "\"%M3_HOME%\\bin\\mvn\" test"
@@ -33,30 +33,45 @@ pipeline {
                     junit '**/target/surefire-reports/*.xml'
                 }
             }
-      }
-    stage('Robot Framework Testing') {
+        }
+
+        stage('Install and Configure Robot Framework') {
             steps {
-                // Install and run WebDriverManager
+                // Install Python and Robot Framework
+                bat 'choco install python3'
+                bat 'C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\pip.exe install --upgrade pip'
+                bat 'C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\pip.exe install robotframework'
+
+                // Install WebDriverManager
                 bat 'C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\pip.exe install webdrivermanager'
                 bat 'C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\python.exe -m webdrivermanager firefox chrome --linkpath C:\\Users\\hp\\Downloads\\edgedriver_win64'
+            }
+        }
 
+        stage('Robot Framework Testing') {
+            steps {
                 // Run Robot Framework tests with the Edge browser
                 dir('C:\\Users\\hp\\Desktop\\pipline') {
-                    bat 'C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\robot.exe --outputdir robot-output --variable BROWSER:Edge --variable webdriver_path:"C:\\Users\\hp\\Downloads\\edgedriver_win64\\msedgedriver.exe" test.robot'
+                    bat 'robot --outputdir robot-output --variable BROWSER:Edge --variable webdriver_path:"C:\\Users\\hp\\Downloads\\edgedriver_win64\\msedgedriver.exe" test.robot'
                 }
             }
-            
+            post {
+                always {
+                    // Archive test results
+                    junit 'C:\\Users\\hp\\Desktop\\pipline\\output.xml'
+                }
+            }
         }
 
-
-      stage('Build docker image') {
-             steps {
-        script {
-            bat 'docker build -t chayma14/devops-pipline .'
+        stage('Build docker image') {
+            steps {
+                script {
+                    bat 'docker build -t chayma14/devops-pipline .'
+                }
+            }
         }
-    }
-         }
-           stage('Push to Docker Hub') {
+
+        stage('Push to Docker Hub') {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId:'chayma14', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
@@ -66,6 +81,6 @@ pipeline {
                     bat "docker push $DOCKER_USERNAME/devops-pipline:latest"
                 }
             }
-
-        }}
+        }
+    }
 }
