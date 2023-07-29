@@ -40,7 +40,7 @@ pipeline {
              bat 'C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\robot.exe --pythonpath C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages C:\\Users\\hp\\Desktop\\pipeline\\test.robot'
             }
     }
-}
+
 
       stage('Build docker image') {
              steps {
