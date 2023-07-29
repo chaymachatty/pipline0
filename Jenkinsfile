@@ -35,21 +35,21 @@ pipeline {
             }
       }
     stage('Robot Framework Testing') {
-            steps {
-                // Change directory to the path where the test file is located
-                dir('C:\\Users\\hp\\Desktop\\pipeline') {
-                    // Run Robot Framework tests with the relative path to the test file and msedgedriver
-                    bat 'C:\\Users\\hp\\Downloads\\edgedriver_win64\\msedgedriver.exe --pythonpath C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages test.robot'
-
-                }
-            }
-            post {
-                always {
-                    // Archive test results
-                    robotPublisher(testPath: 'C:\\Users\\hp\\Desktop\\pipeline\\output.xml')
-                }
-            }
+    steps {
+        // Change directory to the path where the test file is located
+        dir('C:\\Users\\hp\\Desktop\\pipline') {
+            // Run Robot Framework tests with the relative path to the test file and msedgedriver
+            bat '"C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\robot.exe" --outputdir robot-output --variable BROWSER:Edge --variable webdriver_path:"C:\\Users\\hp\\Downloads\\edgedriver_win64\\msedgedriver.exe" test.robot'
+        }
     }
+    post {
+        always {
+            // Archive test results
+            robotPublisher(testPath: 'C:\\Users\\hp\\Desktop\\pipline\\robot-output\\output.xml')
+        }
+    }
+}
+
       stage('Build docker image') {
              steps {
         script {
