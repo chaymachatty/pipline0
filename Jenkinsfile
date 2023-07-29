@@ -33,22 +33,14 @@ pipeline {
                 }
             }
       }
-      stage('Robot Framework Testing') {
+   stage('Robot Framework Testing') {
     steps {
         // Run Robot Framework tests
-        bat "robot --outputdir robot-output C:\\Users\\hp\\Desktop\\pipline"
+        bat 'robot C:\\Users\\hp\\Desktop\\pipeline\\test.robot'
     }
-    post {
-        always {
-            // Archive Robot Framework test results
-            junit '**/robot-output/output.xml'
-        }
-    }
-  
-    }
+}
 
-
-        stage('Build docker image') {
+      stage('Build docker image') {
              steps {
         script {
             bat 'docker build -t chayma14/devops-pipline .'
