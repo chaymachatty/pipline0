@@ -41,12 +41,15 @@ pipeline {
 
         stage('Run Robot Tests') {
             steps {
+                // Add the Edge WebDriver directory to the system PATH
+                bat "set PATH=%PATH%;C:\\Users\\hp\\Downloads\\edgedriver_win64"
+
                 // Install required Python packages (if not already installed)
                 bat "\"%PYTHON_PATH%\" -m pip install --upgrade robotframework"
                 bat "\"%PYTHON_PATH%\" -m pip install --upgrade robotframework-seleniumlibrary"
 
                 // Execute the Robot Framework tests
-                bat "\"%PYTHON_PATH%\" -m robot --variable BROWSER:edge --variable DRIVER_PATH:\"%EDGE_DRIVER_PATH%\" --variable HTML_FILE_PATH:\"%HTML_FILE_PATH%\" \"%ROBOT_PATH%\""
+                bat "\"%PYTHON_PATH%\" -m robot --variable BROWSER:edge --variable DRIVER_PATH:\"%EDGE_DRIVER_PATH%\" \"%ROBOT_PATH%\""
             }
             post {
                 always {
@@ -55,7 +58,6 @@ pipeline {
                 }
             }
         }
-
         stage('Build docker image') {
             steps {
                 script {
