@@ -6,7 +6,7 @@ pipeline {
         M3_HOME = "C:\\Program Files\\apache-maven-3.9.3"
         DOCKER_USERNAME = 'chayma14' 
         DOCKER_PASSWORD = 'chaymachatty14'
-        PATH = "C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts;%PATH%"
+        
     }
 
     stages {
@@ -37,7 +37,7 @@ pipeline {
    stage('Robot Framework Testing') {
     steps {
         // Run Robot Framework tests
-              bat 'robot C:\\Users\\hp\\Desktop\\pipeline\\test.robot'
+            bat 'C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\robot.exe C:\\Users\\hp\\Desktop\\pipeline\\test.robot'
     }
 }
 
