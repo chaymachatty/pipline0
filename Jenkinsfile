@@ -35,24 +35,23 @@ pipeline {
             }
       }
     stage('Robot Framework Testing') {
-    steps {
-        // Change directory to the path where the test file is located
-        dir('C:\\Users\\hp\\Desktop\\pipline') {
-            // Install and run WebDriverManager
-            bat 'pip install webdrivermanager'
-            bat 'python -m webdrivermanager firefox chrome --linkpath C:\\Users\\hp\\Downloads\\edgedriver_win64'
+            steps {
+                // Install and run WebDriverManager
+                bat 'C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\pip.exe install webdrivermanager'
+                bat 'C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\python.exe -m webdrivermanager firefox chrome --linkpath C:\\Users\\hp\\Downloads\\edgedriver_win64'
 
-            // Run Robot Framework tests with the Edge browser
-            bat '"C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\robot.exe" --outputdir robot-output --variable BROWSER:Edge test.robot'
+                // Run Robot Framework tests with the Edge browser
+                dir('C:\\Users\\hp\\Desktop\\pipline') {
+                    bat 'C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\robot.exe --outputdir robot-output --variable BROWSER:Edge --variable webdriver_path:"C:\\Users\\hp\\Downloads\\edgedriver_win64\\msedgedriver.exe" test.robot'
+                }
+            }
+            post {
+                always {
+                    // Archive test results
+                    junit 'C:\\Users\\hp\\Desktop\\pipline\\robot-output\\output.xml'
+                }
+            }
         }
-    }
-    post {
-        always {
-            // Archive test results
-            junit 'robot-output/output.xml'
-        }
-    }
-}
 
 
       stage('Build docker image') {
