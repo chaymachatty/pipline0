@@ -45,12 +45,7 @@ pipeline {
                     bat 'C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\robot.exe --outputdir robot-output --variable BROWSER:Edge --variable webdriver_path:"C:\\Users\\hp\\Downloads\\edgedriver_win64\\msedgedriver.exe" test.robot'
                 }
             }
-            post {
-                always {
-                    // Archive test results
-                    junit 'C:\\Users\\hp\\Desktop\\pipline\\output.xml'
-                }
-            }
+            
         }
 
 

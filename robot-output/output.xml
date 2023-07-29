@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 6.1 (Python 3.11.4 on win32)" generated="20230729 17:42:07.689" rpa="false" schemaversion="4">
+<robot generator="Robot 6.1 (Python 3.11.4 on win32)" generated="20230729 17:54:44.555" rpa="false" schemaversion="4">
 <suite id="s1" name="Test" source="C:\Users\hp\Desktop\pipline\test.robot">
 <test id="s1-t1" name="Test Greeting Message with Edge" line="5">
 <kw name="Open Browser" library="SeleniumLibrary">
@@ -7,13 +7,13 @@
 <arg>edge</arg>
 <arg>executable_path=C:\\Users\\hp\\Downloads\\edgedriver_win64\\msedgedriver.exe</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<msg timestamp="20230729 17:42:07.889" level="INFO">Opening browser 'edge' to base url 'file:///C:/Users/hp/Desktop/pipline/MainClass.html'.</msg>
+<msg timestamp="20230729 17:54:44.715" level="INFO">Opening browser 'edge' to base url 'file:///C:/Users/hp/Desktop/pipline/MainClass.html'.</msg>
 <kw name="Capture Page Screenshot" library="SeleniumLibrary">
 <doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
-<msg timestamp="20230729 17:42:10.589" level="INFO">Cannot capture screenshot because no browser is open.</msg>
-<status status="PASS" starttime="20230729 17:42:10.589" endtime="20230729 17:42:10.589"/>
+<msg timestamp="20230729 17:54:47.379" level="INFO">Cannot capture screenshot because no browser is open.</msg>
+<status status="PASS" starttime="20230729 17:54:47.379" endtime="20230729 17:54:47.379"/>
 </kw>
-<msg timestamp="20230729 17:42:10.589" level="FAIL">WebDriverException: Message: unknown error: Microsoft Edge failed to start: crashed.
+<msg timestamp="20230729 17:54:47.379" level="FAIL">WebDriverException: Message: unknown error: Microsoft Edge failed to start: crashed.
   (unknown error: DevToolsActivePort file doesn't exist)
   (The process started from msedge location C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe is no longer running, so msedgedriver is assuming that msedge has crashed.)
 Stacktrace:
@@ -40,30 +40,30 @@ Backtrace:
 	BaseThreadInitThunk [0x00007FFBC4E226AD+29]
 	RtlUserThreadStart [0x00007FFBC66AAA68+40]
 </msg>
-<status status="FAIL" starttime="20230729 17:42:07.889" endtime="20230729 17:42:10.605"/>
+<status status="FAIL" starttime="20230729 17:54:44.714" endtime="20230729 17:54:47.379"/>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <arg>2s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="NOT RUN" starttime="20230729 17:42:10.605" endtime="20230729 17:42:10.605"/>
+<status status="NOT RUN" starttime="20230729 17:54:47.379" endtime="20230729 17:54:47.379"/>
 </kw>
 <kw name="Get Text" library="SeleniumLibrary">
 <var>${greeting}</var>
 <arg>xpath=//div[@id="Greetings"]/h1</arg>
 <doc>Returns the text value of the element identified by ``locator``.</doc>
-<status status="NOT RUN" starttime="20230729 17:42:10.605" endtime="20230729 17:42:10.605"/>
+<status status="NOT RUN" starttime="20230729 17:54:47.379" endtime="20230729 17:54:47.379"/>
 </kw>
 <kw name="Should Be Equal" library="BuiltIn">
 <arg>${greeting}</arg>
 <arg>Hello, World!</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="NOT RUN" starttime="20230729 17:42:10.605" endtime="20230729 17:42:10.605"/>
+<status status="NOT RUN" starttime="20230729 17:54:47.379" endtime="20230729 17:54:47.379"/>
 </kw>
 <kw name="Close Browser" library="SeleniumLibrary">
 <doc>Closes the current browser.</doc>
-<status status="NOT RUN" starttime="20230729 17:42:10.605" endtime="20230729 17:42:10.605"/>
+<status status="NOT RUN" starttime="20230729 17:54:47.379" endtime="20230729 17:54:47.379"/>
 </kw>
-<status status="FAIL" starttime="20230729 17:42:07.889" endtime="20230729 17:42:10.605">WebDriverException: Message: unknown error: Microsoft Edge failed to start: crashed.
+<status status="FAIL" starttime="20230729 17:54:44.713" endtime="20230729 17:54:47.379">WebDriverException: Message: unknown error: Microsoft Edge failed to start: crashed.
   (unknown error: DevToolsActivePort file doesn't exist)
   (The process started from msedge location C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe is no longer running, so msedgedriver is assuming that msedge has crashed.)
 Stacktrace:
@@ -91,7 +91,7 @@ Backtrace:
 	RtlUserThreadStart [0x00007FFBC66AAA68+40]
 </status>
 </test>
-<status status="FAIL" starttime="20230729 17:42:07.689" endtime="20230729 17:42:10.605"/>
+<status status="FAIL" starttime="20230729 17:54:44.556" endtime="20230729 17:54:47.379"/>
 </suite>
 <statistics>
 <total>
