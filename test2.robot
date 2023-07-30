@@ -7,6 +7,10 @@ Test Greeting Message with Edge in Headless Mode
     ${options}=    Evaluate    sys.modules['selenium.webdriver'].EdgeOptions()    sys, selenium.webdriver
     Call Method    ${options}    add_argument    --headless
 
+    # Disable Edge's protected mode
+    Call Method    ${options}    add_argument    --disable-extensions
+    Call Method    ${options}    add_argument    --disable-features=RendererCodeIntegrity
+
     # Ouvrir le navigateur Microsoft Edge en mode headless avec le pilote spécifié
     Open Browser    file:///C:/Users/hp/Desktop/pipline/MainClass.html    edge    options=${options}    executable_path=C:\\Users\\hp\\Downloads\\edgedriver_win64\\msedgedriver.exe
 
