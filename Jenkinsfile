@@ -61,7 +61,7 @@ pipeline {
             post {
                 always {
                     // Archive Robot Framework test results
-                    junit '**/output.xml'
+                    junit 'robot-output/output.xml'
                 }
             }
         }
