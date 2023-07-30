@@ -13,6 +13,12 @@ pipeline {
     }
 
     stages {
+        stage('Display Agent Environment') {
+            steps {
+                bat 'set'
+            }
+        }
+
         stage('Checkout Git') {
             steps {
                 git branch: 'main', url: 'https://github.com/chaymachatty/pipline0'
@@ -74,3 +80,4 @@ pipeline {
         }
     }
 }
+
