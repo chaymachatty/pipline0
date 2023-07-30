@@ -5,7 +5,7 @@ Library    SeleniumLibrary
 Test Greeting Message with Edge
     # Set the MSEdgeDriver executable path
     ${options}=    Evaluate    sys.modules['selenium.webdriver'].EdgeOptions()    sys, selenium.webdriver
-    ${options.binary_location}=    C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe
+    ${options.binary_location}=    C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
 
     # Set the headless-like mode for Edge
     Call Method    ${options}    add_argument    --headless
