@@ -7,11 +7,11 @@ Test Greeting Message with Edge in Headless Mode
     ${options}=    Evaluate    sys.modules['selenium.webdriver'].EdgeOptions()    sys, selenium.webdriver
     Call Method    ${options}    add_argument    --headless
 
-    # Set the path to the msedge.exe binary
-    Call Method    ${options}    add_argument    --binary=C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe
+    # Set the path to the msedgedriver executable
+    Call Method    ${options}    add_argument    executable_path=C:\\Users\\hp\\Downloads\\edgedriver_win64\\msedgedriver.exe
 
     # Ouvrir le navigateur Microsoft Edge en mode headless avec le pilote spécifié
-    Open Browser    file:///C:/Users/hp/Desktop/pipline/MainClass.html    edge    options=${options}    executable_path=C:\\Users\\hp\\Downloads\\edgedriver_win64\\msedgedriver.exe
+    Open Browser    file:///C:/Users/hp/Desktop/pipline/MainClass.html    edge    options=${options}
 
     # Attendre 2 secondes pour permettre au site de se charger complètement
     Sleep    2s
