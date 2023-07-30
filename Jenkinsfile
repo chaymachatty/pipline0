@@ -6,7 +6,7 @@ pipeline {
         M3_HOME = "C:\\Program Files\\apache-maven-3.9.3"
         DOCKER_USERNAME = 'chayma14' 
         DOCKER_PASSWORD = 'chaymachatty14'
-        ROBOT_PATH = "C:\\Users\\hp\\Desktop\\pipline\\test.robot"
+        ROBOT_PATH = "C:\\Users\\hp\\Desktop\\pipline\\test2.robot"
         PYTHON_PATH = "C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\python.exe"
         EDGE_DRIVER_PATH = "C:\\Users\\hp\\Downloads\\edgedriver_win64\\msedgedriver.exe"
         HTML_FILE_PATH = "C:\\Users\\hp\\Desktop\\pipline\\MainClass.html"
@@ -38,12 +38,13 @@ pipeline {
                 }
             }
         }
-        stage('Verify WebDriver Execution') {
-    steps {
-        bat "start \"\" \"%EDGE_DRIVER_PATH%\""
-    }
-}
 
+        stage('Verify WebDriver Execution') {
+            steps {
+                // Start Microsoft Edge WebDriver in headless mode
+                bat "start \"\" \"%EDGE_DRIVER_PATH%\" --headless"
+            }
+        }
 
         stage('Run Robot Tests') {
             steps {
@@ -54,7 +55,7 @@ pipeline {
                 bat "\"%PYTHON_PATH%\" -m pip install --upgrade robotframework"
                 bat "\"%PYTHON_PATH%\" -m pip install --upgrade robotframework-seleniumlibrary"
 
-                // Execute the Robot Framework tests
+                // Execute the Robot Framework tests in headless mode
                 bat "\"%PYTHON_PATH%\" -m robot --variable BROWSER:edge --variable DRIVER_PATH:\"%EDGE_DRIVER_PATH%\" \"%ROBOT_PATH%\""
             }
             post {
@@ -64,6 +65,7 @@ pipeline {
                 }
             }
         }
+
         stage('Build docker image') {
             steps {
                 script {
