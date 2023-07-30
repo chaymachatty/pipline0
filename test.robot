@@ -1,5 +1,5 @@
 *** Settings ***
-Library    SeleniumLibrary  browser=edge
+Library    SeleniumLibrary  
 
 *** Test Cases ***
 Test Greeting Message with Edge
