@@ -37,19 +37,19 @@ pipeline {
                 }
             }
         }
+        
+
         stage('Run Robot Framework Test') {
             steps {
-                // Install Robot Framework
-                bat "pip install robotframework"
-
-                // Execute the Robot Framework test
-                bat "robot --outputdir test_output ${ROBOT_PATH}"
-            }
-            post {
-                always {
-                    // Archive Robot Framework test results and log
-                    archiveArtifacts artifacts: 'test_output/*'
-                }
+                // Execute the Robot Framework test using the plugin
+                bat "\"${PYTHON_PATH}\" -m pip install robotframework"
+                robot(
+                    testResults: 'test_output',
+                    log: 'test_output/log.html',
+                    output: 'test_output/report.html',
+                    reports: 'test_output/report.xml',
+                    additionalCmdLine: "-v outputdir:test_output ${ROBOT_PATH}"
+                )
             }
         }
 
