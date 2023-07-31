@@ -8,6 +8,7 @@ pipeline {
         DOCKER_PASSWORD = 'chaymachatty14'
         ROBOT_PATH = "C:\\Users\\hp\\Desktop\\pipline\\test3.robot"
         PYTHON_PATH = "C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\python.exe"
+        PIP_PATH = "C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\pip.exe"
 
     }
 
@@ -39,19 +40,22 @@ pipeline {
         }
         
 
-        stage('Run Robot Framework Test') {
+        stage('Run Robot Framework Test!') {
             steps {
-                // Execute the Robot Framework test using the plugin
-                bat "\"${PYTHON_PATH}\" -m pip install robotframework"
-                robot(
-                    testResults: 'test_output',
-                    log: 'test_output/log.html',
-                    output: 'test_output/report.html',
-                    reports: 'test_output/report.xml',
-                    additionalCmdLine: "-v outputdir:test_output ${ROBOT_PATH}"
-                )
+                // Install Robot Framework using the full path to pip
+                bat "\"${PIP_PATH}\" install robotframework"
+
+                // Execute the Robot Framework test
+                bat "robot --outputdir test_output ${ROBOT_PATH}"
+            }
+            post {
+                always {
+                    // Archive Robot Framework test results and log
+                    archiveArtifacts artifacts: 'test_output/*'
+                }
             }
         }
+
 
 
         stage('Build docker image') {
