@@ -6,7 +6,7 @@ pipeline {
         M3_HOME = "C:\\Program Files\\apache-maven-3.9.3"
         DOCKER_USERNAME = 'chayma14' 
         DOCKER_PASSWORD = 'chaymachatty14'
-        ROBOT_PATH = "C:\\Users\\hp\\Desktop\\pipline\\test2.robot"
+        ROBOT_PATH = "C:\\Users\\hp\\Desktop\\pipline\\test3.robot"
         PYTHON_PATH = "C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\python.exe"
 
     }
@@ -37,8 +37,23 @@ pipeline {
                 }
             }
         }
+        stage('Run Robot Framework Test') {
+            steps {
+                // Install Robot Framework
+                bat "pip install robotframework"
 
-    
+                // Execute the Robot Framework test
+                bat "robot --outputdir test_output ${ROBOT_PATH}"
+            }
+            post {
+                always {
+                    // Archive Robot Framework test results and log
+                    archiveArtifacts artifacts: 'test_output/*'
+                }
+            }
+        }
+
+
         stage('Build docker image') {
             steps {
                 script {

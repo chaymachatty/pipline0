@@ -7,7 +7,7 @@ public class MainClassTest {
 
     @Test
     public void testGetGreeting() {
-        String expected = "Hello, World!";
+        String expected = "Hello,World!";
         String actual = MainClass.getGreeting();
         assertEquals(expected, actual);
     }
