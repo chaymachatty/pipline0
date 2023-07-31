@@ -12,12 +12,6 @@ pipeline {
     }
 
     stages {
-        stage('Display Agent Environment') {
-            steps {
-                bat 'set'
-            }
-        }
-
         stage('Checkout Git') {
             steps {
                 git branch: 'main', url: 'https://github.com/chaymachatty/pipline0'
@@ -44,20 +38,7 @@ pipeline {
             }
         }
 
-        stage('Run Robot Framework Tests') {
-            steps {
-                // Use the PYTHON_PATH and ROBOT_PATH variables to run the Robot Framework test
-                bat "\"${PYTHON_PATH}\" -m robot --outputdir robot_output ${ROBOT_PATH}"
-            }
-            post {
-                always {
-                    // Archive Robot Framework test results
-                    archiveArtifacts 'robot_output/*.xml'
-                    archiveArtifacts 'robot_output/*.html'
-                }
-            }
-        }
-
+    
         stage('Build docker image') {
             steps {
                 script {

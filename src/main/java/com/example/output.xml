@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1.1 (Python 3.11.4 on win32)" generated="20230731 17:15:46.504" rpa="false" schemaversion="4">
+<suite id="s1" name="testSuite" source="C:\Users\hp\Desktop\pipline\src\main\java\com\example\testSuite.robot">
+<test id="s1-t1" name="Test Greeting" line="5">
+<kw name="Run Process" library="Process">
+<var>${output}</var>
+<arg>java -cp target/classes</arg>
+<arg>com.example.MainClass</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20230731 17:15:46.531" level="INFO">Starting process:
+"java -cp target/classes" com.example.MainClass</msg>
+<msg timestamp="20230731 17:15:46.533" level="FAIL">FileNotFoundError: [WinError 2] Le fichier spécifié est introuvable</msg>
+<status status="FAIL" starttime="20230731 17:15:46.531" endtime="20230731 17:15:46.535"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${output}</arg>
+<arg>Hello, World!</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" starttime="20230731 17:15:46.535" endtime="20230731 17:15:46.535"/>
+</kw>
+<status status="FAIL" starttime="20230731 17:15:46.531" endtime="20230731 17:15:46.535">FileNotFoundError: [WinError 2] Le fichier spécifié est introuvable</status>
+</test>
+<status status="FAIL" starttime="20230731 17:15:46.508" endtime="20230731 17:15:46.538"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="testSuite">testSuite</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
