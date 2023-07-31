@@ -9,6 +9,7 @@ pipeline {
         ROBOT_PATH = "C:\\Users\\hp\\Desktop\\pipline\\test3.robot"
         PYTHON_PATH = "C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\python.exe"
         PIP_PATH = "C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\pip.exe"
+        ROBOT_FRAMEWORK_PATH = "C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\robot.exe"
 
     }
 
@@ -40,13 +41,13 @@ pipeline {
         }
         
 
-        stage('Run Robot Framework Test!') {
+        stage('Run Robot Framework Test') {
             steps {
                 // Install Robot Framework using the full path to pip
                 bat "\"${PIP_PATH}\" install robotframework"
 
-                // Execute the Robot Framework test
-                bat "robot --outputdir test_output ${ROBOT_PATH}"
+                // Execute the Robot Framework test with the full path to robot
+                bat "\"${ROBOT_FRAMEWORK_PATH}\" --outputdir test_output ${ROBOT_PATH}"
             }
             post {
                 always {
