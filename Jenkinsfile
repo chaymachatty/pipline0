@@ -51,11 +51,6 @@ pipeline {
     }
     post {
         always {
-            // Create the "report-result" folder if it doesn't exist
-            bat "if not exist report-result mkdir report-result"
-
-            // Move test results to the "report-result" folder
-            bat "move test_output report-result"
 
             // Archive Robot Framework test results and log from the "report-result" folder
             archiveArtifacts artifacts: 'report-result/test_output/*'
