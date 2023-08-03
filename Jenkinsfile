@@ -61,20 +61,26 @@ pipeline {
     } 
      
 
-  stage('sonar quality check') {
+  
+    stage('sonar quality check') {
     steps {
         script {
             withSonarQubeEnv(credentialsId: 'sonar-token') {
-            timeout(time: 1, unit: 'HOURS') {
-                      def qg = waitForQualityGate()
-                      if (qg.status != 'OK') {
-                           error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                      }   
+                // Run the SonarQube analysis using Maven or any other build tool
+                bat "\"%M3_HOME%\\bin\\mvn\" clean package sonar:sonar -Dsonar.login=%SONAR_LOGIN%"
+                
+                timeout(time: 1, unit: 'HOURS') {
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                    }   
+                }
+            }
         }
     }
-    
 }
-    }}
+
+
    
 
 
