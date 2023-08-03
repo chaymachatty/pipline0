@@ -53,7 +53,7 @@ pipeline {
         always {
 
             // Archive Robot Framework test results and log from the "report-result" folder
-            archiveArtifacts artifacts: 'report-result/test_output/*'
+            archiveArtifacts artifacts: 'C:\\Users\\hp\\Desktop\\pipline\\report-result\\test_output/*'
         }
     }
 }
