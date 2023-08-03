@@ -67,7 +67,7 @@ pipeline {
                     withSonarQubeEnv(credentialsId: 'sonar-token') {
                         bat "${scannerHome}/bin/sonar-scanner" + 
                             " -Dsonar.projectKey=chayma14" +
-                            " -Dsonar.sources=src" + // Update this to match your source code directory
+                            " -Dsonar.sources=src/main/java/com/example/MainClass" + // Update this to match your source code directory
                             " -Dsonar.host.url=http://localhost:9000" +
                             " -Dsonar.login=3d653193e82337649532bd82dcefa88947a519d0" // Your SonarQube token
                     }
