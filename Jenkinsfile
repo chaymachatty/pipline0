@@ -81,7 +81,7 @@ stage("Run SonarQube Analysis") {
                     }
                 }
             }
-
+  }
 stage("Build Project Again") {
     steps {
         bat "\"%M3_HOME%\\bin\\mvn\" clean install"
