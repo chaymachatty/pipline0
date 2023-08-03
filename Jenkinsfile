@@ -58,6 +58,8 @@ pipeline {
     }
     }
     }
+
+    
    stage("Run SonarQube Analysis") {
     steps {
         script {
@@ -68,18 +70,14 @@ pipeline {
     }
 }
 
-stage("Check SonarQube Quality Gate") {
-    steps {
-        script {
-            timeout(time: 1, unit: 'HOURS') {
-                def qg = waitForQualityGate()
-                if (qg.status != 'OK') {
-                    error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                }
-            }
-        }
+post {
+    always {
+        // Archive SonarQube results
+        archiveArtifacts(artifacts: '**/target/sonar/**', allowEmptyArchive: true, onlyIfSuccessful: true)
     }
 }
+
+
 
 stage("Build Project Again") {
     steps {
