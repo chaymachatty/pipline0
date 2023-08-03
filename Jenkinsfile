@@ -59,13 +59,9 @@ pipeline {
     }
     }
     } 
-      stage('Set Execute Permissions') {
-    steps {
-        // On Windows, there's no need for chmod, so this step can be skipped
-    }
-}
+     
 
-stage('Run SonarQube Analysis') {
+  stage('Run SonarQube Analysis') {
     steps {
         script {
             withSonarQubeEnv(credentialsId: 'sonar-token') {
