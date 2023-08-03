@@ -68,9 +68,9 @@ pipeline {
                         
                         env.SONAR_LOGIN = credentials('sonar-token') // Set the SONAR_LOGIN environment variable
                         
-                    
-                        // Run the SonarQube analysis with SonarQube CLI
-                        bat "\"${SONARQUBE_PATH}\\sonar-scanner.bat\" -Dsonar.projectKey=${projectKey} -Dsonar.host.url=${sonarHostUrl} -Dsonar.login=%SONAR_LOGIN%"
+                
+                          // Run the SonarQube analysis with SonarQube Scanner
+                        bat "\"${SONAR_SCANNER_PATH}\" -Dsonar.projectKey=${projectKey} -Dsonar.host.url=${sonarHostUrl} -Dsonar.login=%SONAR_LOGIN%"
                     }
                 }
             }
