@@ -59,8 +59,8 @@ pipeline {
     }
     }
 
-    
-   stage("Run SonarQube Analysis") {
+
+stage("Run SonarQube Analysis") {
     steps {
         script {
             withSonarQubeEnv(credentialsId: 'sonar-token') {
@@ -68,7 +68,7 @@ pipeline {
             }
         }
     }
-}
+
 
 post {
     always {
@@ -76,7 +76,7 @@ post {
         archiveArtifacts(artifacts: '**/target/sonar/**', allowEmptyArchive: true, onlyIfSuccessful: true)
     }
 }
-
+}
 
 
 stage("Build Project Again") {
