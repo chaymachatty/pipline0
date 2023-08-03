@@ -61,9 +61,9 @@ pipeline {
     stage("Check SonarQube Quality") {
     steps {
         script {
-            withSonarQubeEnv(credentialsId: 'sonar-token') {  
+            withSonarQubeEnv(credentialsId: 'sonar-token') {
                 // Run SonarQube analysis
-                bat "\"%M3_HOME%\\bin\\mvn\" sonar:sonar"
+                bat "\"%M3_HOME%\\bin\\mvn\" clean install sonar:sonar"
                 
                 // Wait for the SonarQube quality gate to complete
                 timeout(time: 1, unit: 'HOURS') {
@@ -72,13 +72,11 @@ pipeline {
                         error "Pipeline aborted due to quality gate failure: ${qg.status}"
                     }
                 }
-                
-                // Build the project again after SonarQube analysis
-                bat "\"%M3_HOME%\\bin\\mvn\" clean install"
             }
         }
     }
 }
+
  
      
           stage('Build docker image') {
