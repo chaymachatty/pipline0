@@ -10,6 +10,9 @@ pipeline {
         PYTHON_PATH = "C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\python.exe"
         PIP_PATH = "C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\pip.exe"
         ROBOT_FRAMEWORK_PATH = "C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\robot.exe"
+        SONAR_SCANNER_PATH = "C:\\Users\\hp\\Downloads\\sonar-scanner-cli-5.0.0.2966-windows\\sonar-scanner-5.0.0.2966-windows\\bin\\sonar-scanner.bat"
+        SONARQUBE_PATH = "C:\\Users\\hp\\Downloads\\sonarqube-8.9.10.61524\\sonarqube-8.9.10.61524\\bin\\"
+    
 
     }
 
@@ -55,30 +58,33 @@ pipeline {
         archiveArtifacts artifacts: "report-result\\test_output\\*"
     }
     }
-    }
-   stage('Analyze the app with SonarQube') {
-    steps {
-        script {
-            withSonarQubeEnv(credentialsId: 'sonar-token') {
-                def projectKey = 'chayma14' // Replace with your project's key in SonarQube
-                def sonarHostUrl = 'http://localhost:9000' // Replace with your SonarQube server URL
-                def sonarScannerPath = "C:\\Users\\hp\\Downloads\\sonar-scanner-cli-5.0.0.2966-windows\\sonar-scanner-5.0.0.2966-windows\\bin\\sonar-scanner.bat"
-                def sonarqubePath = "C:\\Users\\hp\\Downloads\\sonarqube-8.9.10.61524\\sonarqube-8.9.10.61524\\bin\\"
-                
-              
-                // Run the SonarQube analysis with SonarQube Scanner
-                bat "\"${sonarScannerPath}\" -Dsonar.projectKey=${projectKey} -Dsonar.host.url=${sonarHostUrl} -Dsonar.login=%SONAR_LOGIN%"
-        
+    } 
+      stage('Analyze the app with SonarQube') {
+            steps {
+                script {
+                    withSonarQubeEnv(credentialsId: 'sonar-token') {
+                        def projectKey = 'chayma14' // Replace with your project's key in SonarQube
+                        def sonarHostUrl = 'http://localhost:9000' // Replace with your SonarQube server URL
+                        
+                        env.SONAR_LOGIN = credentials('sonar-token') // Set the SONAR_LOGIN environment variable
+                        
+                    
+                        // Run the SonarQube analysis with SonarQube CLI
+                        bat "\"${SONARQUBE_PATH}\\sonar-scanner.bat\" -Dsonar.projectKey=${projectKey} -Dsonar.host.url=${sonarHostUrl} -Dsonar.login=%SONAR_LOGIN%"
+                    }
+                }
+            }
+            post {
+                always {
+                    // Archive SonarQube analysis report
+                    archiveArtifacts artifacts: '**/target/sonar/*'
+                }
             }
         }
-    }
-    post {
-        always {
-            // Archive SonarQube analysis report
-            archiveArtifacts artifacts: '**/target/sonar/*'
-        }
-    }
-}
+   
+
+
+
 
 
 
