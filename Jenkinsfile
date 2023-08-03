@@ -60,33 +60,24 @@ pipeline {
     }
     } 
      
-
-  
-    stage('sonar quality check') {
-    steps {
-        script {
-            withSonarQubeEnv(credentialsId: 'sonar-token') {
-                def projectKey = 'chayma14' // Replace with your project's key in SonarQube
-                def sonarHostUrl = 'http://localhost:9000' // Replace with your SonarQube server URL
-                
-                env.SONAR_LOGIN = credentials('sonar-token') // Set the SONAR_LOGIN environment variable
-                
-                // Run the SonarQube analysis using Maven with sonar.login parameter
-                bat "\"%M3_HOME%\\bin\\mvn\" clean package sonar:sonar -Dsonar.projectKey=${projectKey} -Dsonar.host.url=${sonarHostUrl} -Dsonar.login=%SONAR_LOGIN%"
-                
-                timeout(time: 1, unit: 'HOURS') {
-                    def qg = waitForQualityGate()
-                    if (qg.status != 'OK') {
-                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                    }   
+     stage('SonarQube Analysis') {
+            steps {
+                script {
+                    def scannerHome = tool 'SonarQubeScanner'
+                    withSonarQubeEnv(credentialsId: 'sonar-token') {
+                        bat "${scannerHome}/bin/sonar-scanner" + 
+                            " -Dsonar.projectKey=chayma14" +
+                            " -Dsonar.sources=src" + // Update this to match your source code directory
+                            " -Dsonar.host.url=http://localhost:9000" +
+                            " -Dsonar.login=3d653193e82337649532bd82dcefa88947a519d0" // Your SonarQube token
+                    }
                 }
             }
         }
-    }
-}
+    
 
 
-   
+
 
 
         stage('Build docker image') {
