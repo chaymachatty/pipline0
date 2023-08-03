@@ -61,7 +61,7 @@ pipeline {
     stage("Check SonarQube Quality") {
     steps {
         script {
-            withSonarQubeEnv('soanarserver') {  
+            withSonarQubeEnv(credentialsId: 'sonar-token') {  
                 // Run SonarQube analysis
                 bat "\"%M3_HOME%\\bin\\mvn\" sonar:sonar"
                 
