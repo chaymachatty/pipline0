@@ -66,8 +66,13 @@ pipeline {
     steps {
         script {
             withSonarQubeEnv(credentialsId: 'sonar-token') {
-                // Run the SonarQube analysis using Maven or any other build tool
-                bat "\"%M3_HOME%\\bin\\mvn\" clean package sonar:sonar -Dsonar.login=%SONAR_LOGIN%"
+                def projectKey = 'chayma14' // Replace with your project's key in SonarQube
+                def sonarHostUrl = 'http://localhost:9000' // Replace with your SonarQube server URL
+                
+                env.SONAR_LOGIN = credentials('sonar-token') // Set the SONAR_LOGIN environment variable
+                
+                // Run the SonarQube analysis using Maven with sonar.login parameter
+                bat "\"%M3_HOME%\\bin\\mvn\" clean package sonar:sonar -Dsonar.projectKey=${projectKey} -Dsonar.host.url=${sonarHostUrl} -Dsonar.login=%SONAR_LOGIN%"
                 
                 timeout(time: 1, unit: 'HOURS') {
                     def qg = waitForQualityGate()
