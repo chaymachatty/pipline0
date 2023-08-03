@@ -41,7 +41,7 @@ pipeline {
         }
         
 
-     stage('Run Robot Framework Test') {
+    stage('Run Robot Framework Test') {
     steps {
         // Install Robot Framework using the full path to pip
         bat "\"${PIP_PATH}\" install robotframework"
@@ -52,13 +52,13 @@ pipeline {
     post {
         always {
             // Create the "report-result" folder if it doesn't exist
-            bat "if not exist \"C:\\Users\\hp\\Desktop\\pipline\\report-result\" mkdir \"C:\\Users\\hp\\Desktop\\pipline\\report-result\""
+            bat "if not exist report-result mkdir report-result"
 
             // Move test results to the "report-result" folder
-            bat "move \"C:\\Users\\hp\\Desktop\\pipline\\test_output\" \"C:\\Users\\hp\\Desktop\\pipline\\report-result\""
+            bat "move test_output report-result"
 
             // Archive Robot Framework test results and log from the "report-result" folder
-            archiveArtifacts artifacts: 'C:\\Users\\hp\\Desktop\\pipline\\report-result\\test_output/*'
+            archiveArtifacts artifacts: 'report-result/test_output/*'
         }
     }
 }
