@@ -10,8 +10,7 @@ pipeline {
         PYTHON_PATH = "C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\python.exe"
         PIP_PATH = "C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\pip.exe"
         ROBOT_FRAMEWORK_PATH = "C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\robot.exe"
-        SONAR_SCANNER_PATH = "C:\\Users\\hp\\Downloads\\sonar-scanner-cli-5.0.0.2966-windows\\sonar-scanner-5.0.0.2966-windows\\bin\\sonar-scanner.bat"
-        SONARQUBE_PATH = "C:\\Users\\hp\\Downloads\\sonarqube-8.9.10.61524\\sonarqube-8.9.10.61524\\bin\\"
+    
     
 
     }
@@ -60,24 +59,34 @@ pipeline {
     }
     } 
      
-     stage('SonarQube Analysis') {
-            steps {
-                script {
-                    def scannerHome = tool 'SonarQubeScanner'
-                    withSonarQubeEnv(credentialsId: 'sonar-token') {
-                        bat "${scannerHome}/bin/sonar-scanner" + 
-                            " -Dsonar.projectKey=chayma14" +
-                            " -Dsonar.sources=src/main/java/com/example/MainClass" + // Update this to match your source code directory
-                            " -Dsonar.host.url=http://localhost:9000" +
-                            " -Dsonar.login=3d653193e82337649532bd82dcefa88947a519d0" // Your SonarQube token
+    stage("Check SonarQube Quality") {
+    steps {
+        script {
+            withSonarQubeEnv(credentialsId: 'sonar-token') {
+                def projectKey = 'chayma14' // Replace with your project's key in SonarQube
+                def sonarHostUrl = 'http://localhost:9000' // Replace with your SonarQube server URL
+                
+                env.SONAR_LOGIN = credentials('sonar-token') // Set the SONAR_LOGIN environment variable
+                
+                // Run SonarQube analysis
+                bat "\"%M3_HOME%\\bin\\mvn\" sonar:sonar -Dsonar.projectKey=${projectKey} -Dsonar.host.url=${sonarHostUrl} -Dsonar.login=%SONAR_LOGIN%"
+                
+                // Wait for the SonarQube quality gate to complete
+                timeout(time: 1, unit: 'HOURS') {
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
                     }
                 }
+                
+                // Build the project again after SonarQube analysis
+                bat "\"%M3_HOME%\\bin\\mvn\" clean install"
             }
         }
+    }
+}
+
     
-
-
-
 
 
         stage('Build docker image') {
