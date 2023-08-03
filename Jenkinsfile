@@ -58,25 +58,34 @@ pipeline {
     }
     }
     }
-    stage("Check SonarQube Quality") {
+   stage("Run SonarQube Analysis") {
     steps {
         script {
             withSonarQubeEnv(credentialsId: 'sonar-token') {
-                // Run SonarQube analysis
                 bat "\"%M3_HOME%\\bin\\mvn\" clean install sonar:sonar"
-                
-                // Wait for the SonarQube quality gate to complete
-                timeout(time: 1, unit: 'HOURS') {
-                    def qg = waitForQualityGate()
-                    if (qg.status != 'OK') {
-                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                    }
+            }
+        }
+    }
+}
+
+stage("Check SonarQube Quality Gate") {
+    steps {
+        script {
+            timeout(time: 1, unit: 'HOURS') {
+                def qg = waitForQualityGate()
+                if (qg.status != 'OK') {
+                    error "Pipeline aborted due to quality gate failure: ${qg.status}"
                 }
             }
         }
     }
 }
 
+stage("Build Project Again") {
+    steps {
+        bat "\"%M3_HOME%\\bin\\mvn\" clean install"
+    }
+}
  
      
           stage('Build docker image') {
