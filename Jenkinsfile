@@ -41,21 +41,28 @@ pipeline {
         }
         
 
-        stage('Run Robot Framework Test') {
-            steps {
-                // Install Robot Framework using the full path to pip
-                bat "\"${PIP_PATH}\" install robotframework"
+       stage('Run Robot Framework Test') {
+    steps {
+        // Install Robot Framework using the full path to pip
+        bat "\"${PIP_PATH}\" install robotframework"
 
-                // Execute the Robot Framework test with the full path to robot
-                bat "\"${ROBOT_FRAMEWORK_PATH}\" --outputdir test_output ${ROBOT_PATH}"
-            }
-            post {
-                always {
-                    // Archive Robot Framework test results and log
-                    archiveArtifacts artifacts: 'test_output/*'
-                }
-            }
+        // Execute the Robot Framework test with the full path to robot
+        bat "\"${ROBOT_FRAMEWORK_PATH}\" --outputdir test_output ${ROBOT_PATH}"
+    }
+    post {
+        always {
+            // Create the "report-result" folder if it doesn't exist
+            bat "if not exist report-result mkdir report-result"
+
+            // Move test results to the "report-result" folder
+            bat "move test_output report-result"
+
+            // Archive Robot Framework test results and log from the "report-result" folder
+            archiveArtifacts artifacts: 'report-result/test_output/*'
         }
+    }
+}
+
 
 
 
