@@ -56,19 +56,26 @@ pipeline {
     }
     }
     }
-    stage('analyze the app with sonarQube') {
-            steps {
-                script {
-                    withSonarQubeEnv(credentialsId: 'sonar-token') {
-                        mvn sonar:sonar \
-                  -Dsonar.projectKey=chayma14 \
-                  -Dsonar.host.url=http://localhost:9000 \
-                  -Dsonar.login=b085d38cf6fc7c9abb00c58578f834c03ca713d5
-   
-                           }
+   stage('Analyze the app with SonarQube') {
+    steps {
+        script {
+            withSonarQubeEnv(credentialsId: 'sonar-token') {
+                def projectName = 'pipline' // Replace with your project's name
+                def projectKey = 'chayma14' // Replace with your project's key in SonarQube
+                
+                // Run the SonarQube analysis
+                bat "sonar-scanner -Dsonar.projectName=${projectName} -Dsonar.projectKey=${projectKey}"
             }
-            }
+        }
     }
+    post {
+        always {
+            // Archive SonarQube analysis report
+            archiveArtifacts artifacts: '**/target/sonar/*'
+        }
+    }
+}
+
 
 
         stage('Build docker image') {
