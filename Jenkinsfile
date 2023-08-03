@@ -57,19 +57,13 @@ pipeline {
         archiveArtifacts artifacts: "report-result\\test_output\\*"
     }
     }
-    } 
-     
+    }
     stage("Check SonarQube Quality") {
     steps {
         script {
-            withSonarQubeEnv(credentialsId: 'sonar-token') {
-                def projectKey = 'chayma14' // Replace with your project's key in SonarQube
-                def sonarHostUrl = 'http://localhost:9000' // Replace with your SonarQube server URL
-                
-                env.SONAR_LOGIN = credentials('sonar-token') // Set the SONAR_LOGIN environment variable
-                
+            withSonarQubeEnv(credentialsId: 'sonar-token') {  
                 // Run SonarQube analysis
-                bat "\"%M3_HOME%\\bin\\mvn\" sonar:sonar -Dsonar.projectKey=${projectKey} -Dsonar.host.url=${sonarHostUrl} -Dsonar.login=%SONAR_LOGIN%"
+                bat "\"%M3_HOME%\\bin\\mvn\" sonar:sonar"
                 
                 // Wait for the SonarQube quality gate to complete
                 timeout(time: 1, unit: 'HOURS') {
@@ -85,11 +79,9 @@ pipeline {
         }
     }
 }
-
-    
-
-
-        stage('Build docker image') {
+ 
+     
+          stage('Build docker image') {
             steps {
                 script {
                     bat 'docker build -t chayma14/devops-pipline .'
