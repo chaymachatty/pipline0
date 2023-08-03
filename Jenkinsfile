@@ -54,12 +54,21 @@ pipeline {
         // Archive Robot Framework test results and log from the "report-result" folder
         archiveArtifacts artifacts: "report-result\\test_output\\*"
     }
-}
-
-}
-
-
-
+    }
+    }
+    stage('analyze the app with sonarQube') {
+            steps {
+                script {
+                    withSonarQubeEnv(credentialsId: 'sonar-token') {
+                        mvn sonar:sonar \
+                  -Dsonar.projectKey=chayma14 \
+                  -Dsonar.host.url=http://localhost:9000 \
+                  -Dsonar.login=b085d38cf6fc7c9abb00c58578f834c03ca713d5
+   
+                           }
+            }
+            }
+    }
 
 
         stage('Build docker image') {
@@ -81,6 +90,8 @@ pipeline {
                 }
             }
         }
+    
+
     }
 }
 
