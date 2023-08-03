@@ -65,14 +65,10 @@ pipeline {
                 def sonarScannerPath = "C:\\Users\\hp\\Downloads\\sonar-scanner-cli-5.0.0.2966-windows\\sonar-scanner-5.0.0.2966-windows\\bin\\sonar-scanner.bat"
                 def sonarqubePath = "C:\\Users\\hp\\Downloads\\sonarqube-8.9.10.61524\\sonarqube-8.9.10.61524\\bin\\"
                 
-                // Run the SonarQube analysis using Maven
-                bat "\"%M3_HOME%\\bin\\mvn\" sonar:sonar -Dsonar.projectKey=${projectKey} -Dsonar.host.url=${sonarHostUrl} -Dsonar.login=%SONAR_LOGIN%"
-                
+              
                 // Run the SonarQube analysis with SonarQube Scanner
                 bat "\"${sonarScannerPath}\" -Dsonar.projectKey=${projectKey} -Dsonar.host.url=${sonarHostUrl} -Dsonar.login=%SONAR_LOGIN%"
-                
-                // Run the SonarQube analysis with SonarQube CLI
-                bat "\"${sonarqubePath}\\sonar-scanner.bat\" -Dsonar.projectKey=${projectKey} -Dsonar.host.url=${sonarHostUrl} -Dsonar.login=%SONAR_LOGIN%"
+        
             }
         }
     }
