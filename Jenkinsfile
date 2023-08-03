@@ -61,33 +61,16 @@ pipeline {
     } 
      
 
-  stage('Run SonarQube Analysis') {
+  stage('sonar quality check') {
     steps {
         script {
-            withSonarQubeEnv(credentialsId: 'sonar-token') {
-                def projectKey = 'chayma14' // Replace with your project's key in SonarQube
-                def sonarHostUrl = 'http://localhost:9000' // Replace with your SonarQube server URL
-                
-                env.SONAR_LOGIN = credentials('sonar-token') // Set the SONAR_LOGIN environment variable
-                
-                // Run the SonarQube analysis using Maven
-                bat "\"%M3_HOME%\\bin\\mvn\" sonar:sonar -Dsonar.projectKey=${projectKey} -Dsonar.host.url=${sonarHostUrl} -Dsonar.login=%SONAR_LOGIN%"
-                
-                // Run the SonarQube analysis with SonarQube Scanner
-                bat "\"${SONAR_SCANNER_PATH}\" -Dsonar.projectKey=${projectKey} -Dsonar.host.url=${sonarHostUrl} -Dsonar.login=%SONAR_LOGIN%"
-                
-                // Run the SonarQube analysis with SonarQube CLI
-                bat "\"${SONARQUBE_PATH}\\sonar-scanner.bat\" -Dsonar.projectKey=${projectKey} -Dsonar.host.url=${sonarHostUrl} -Dsonar.login=%SONAR_LOGIN%"
-            }
-        }
-    }
-    post {
-        always {
-            // Archive SonarQube analysis report
-            archiveArtifacts artifacts: '**/target/sonar/*'
-        }
-    }
-}
+           timeout(time: 1, unit: 'HOURS') {
+                      def qg = waitForQualityGate()
+                      if (qg.status != 'OK') {
+                           error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                      }
+           }}}
+           }
 
    
 
