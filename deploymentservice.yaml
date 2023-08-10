@@ -1,35 +1,37 @@
+
 apiVersion: apps/v1
-kind: Deployment
+kind: Deployment # Kubernetes resource kind we are creating
 metadata:
-  name: spring-boot-java-app-deployment
+  name: spring-boot-k8s-deployment
 spec:
   selector:
     matchLabels:
-      app: spring-boot-java-app
-  replicas: 2
+      app: spring-boot-k8s
+  replicas: 2 # Number of replicas that will be created for this deployment
   template:
     metadata:
       labels:
-        app: spring-boot-java-app
+        app: spring-boot-k8s
     spec:
       containers:
-        - name: spring-boot-java-app
-          image: chayma14/devops-pipeline
+        - name: spring-boot-k8s
+          image: chayma14/devops-pipline # Image that will be used to containers in the cluster
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8080
+            - containerPort: 8080 # The port that the container is running on in the cluster
+
 
 ---
 
-apiVersion: v1
-kind: Service
-metadata:
-  name: spring-boot-java-app-service
+apiVersion: v1 # Kubernetes API version
+kind: Service # Kubernetes resource kind we are creating
+metadata: # Metadata of the resource kind we are creating
+  name: springboot-k8ssvc
 spec:
   selector:
-    app: spring-boot-java-app
+    app: spring-boot-k8s
   ports:
     - protocol: "TCP"
-      port: 8081
-      targetPort: 8081
-  type: NodePort
+      port: 8080 # The port that the service is running on in the cluster
+      targetPort: 8080 # The port exposed by the service
+  type: NodePort # type of the service.
