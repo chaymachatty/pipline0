@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1.1 (Python 3.11.4 on win32)" generated="20230813 15:19:22.467" rpa="false" schemaversion="4">
+<suite id="s1" name="Robot Interactive Console" source="c:\Users\hp\.vscode\extensions\robocorp.robotframework-lsp-1.11.0\src\robotframework_ls\vendored\robotframework_interactive\robot_interactive_console.robot">
+<test id="s1-t1" name="Default Task/Test" line="5">
+<kw name="Interpreter Main Loop" library="MainLoop">
+<kw name="Set Variable" library="BuiltIn">
+<var>${jar_path}</var>
+<arg>C:/Users/hp/Desktop/piplinev0/target/devops-pipeline.jar</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230813 15:19:24.231" level="INFO">${jar_path} = C:/Users/hp/Desktop/piplinev0/target/devops-pipeline.jar</msg>
+<status status="PASS" starttime="20230813 15:19:24.231" endtime="20230813 15:19:24.231"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${java_file}</var>
+<arg>C:/Users/hp/Desktop/piplinev0/src/main/java/com/example/MainClass.java</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230813 15:19:24.231" level="INFO">${java_file} = C:/Users/hp/Desktop/piplinev0/src/main/java/com/example/MainClass.java</msg>
+<status status="PASS" starttime="20230813 15:19:24.231" endtime="20230813 15:19:24.231"/>
+</kw>
+<kw name="Run Process">
+<arg>javac</arg>
+<arg>${java_file}</arg>
+<msg timestamp="20230813 15:19:24.233" level="FAIL">No keyword with name 'Run Process' found.</msg>
+<status status="FAIL" starttime="20230813 15:19:24.233" endtime="20230813 15:19:24.233"/>
+</kw>
+<kw name="Run Process">
+<var>${result}</var>
+<arg>java</arg>
+<arg>-cp</arg>
+<arg>${jar_path}</arg>
+<arg>com.example.MainClass</arg>
+<status status="NOT RUN" starttime="20230813 15:19:24.233" endtime="20230813 15:19:24.233"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${output}</var>
+<arg>${result.stdout.strip()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230813 15:19:24.233" endtime="20230813 15:19:24.233"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${expected_output}</var>
+<arg>Hello,World!</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230813 15:19:24.233" endtime="20230813 15:19:24.233"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${output}</arg>
+<arg>${expected_output}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="NOT RUN" starttime="20230813 15:19:24.233" endtime="20230813 15:19:24.233"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Captured Output: ${output}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230813 15:19:24.233" endtime="20230813 15:19:24.233"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Expected Output: ${expected_output}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230813 15:19:24.233" endtime="20230813 15:19:24.233"/>
+</kw>
+<status status="PASS" starttime="20230813 15:19:22.499" endtime="20230813 15:19:30.383"/>
+</kw>
+<status status="PASS" starttime="20230813 15:19:22.499" endtime="20230813 15:19:30.383"/>
+</test>
+<status status="PASS" starttime="20230813 15:19:22.467" endtime="20230813 15:19:30.391"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Robot Interactive Console">Robot Interactive Console</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

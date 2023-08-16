@@ -1,43 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 6.1.1 (Python 3.11.4 on win32)" generated="20230809 15:43:17.923" rpa="false" schemaversion="4">
-<suite id="s1" name="Test" source="C:\Users\hp\Desktop\pipline\test.robot">
-<test id="s1-t1" name="Test Greeting Message with Edge" line="5">
-<kw name="Open Browser" library="SeleniumLibrary">
-<arg>file:///C:/Users/hp/Desktop/pipline/MainClass.html</arg>
-<arg>edge</arg>
-<arg>executable_path=C:\\Users\\hp\\Downloads\\edgedriver_win64\\msedgedriver.exe</arg>
-<doc>Opens a new browser instance to the optional ``url``.</doc>
-<msg timestamp="20230809 15:43:18.277" level="INFO">Opening browser 'edge' to base url 'file:///C:/Users/hp/Desktop/pipline/MainClass.html'.</msg>
-<msg timestamp="20230809 15:43:18.389" level="INFO">Executing: C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\site-packages\selenium\webdriver\common\windows\selenium-manager.exe --browser edge --output json</msg>
-<msg timestamp="20230809 15:43:19.157" level="WARN">Incompatible release of msedgedriver (version 115.0.1901.183) detected in PATH: C:\Users\hp\Desktop\pipline\msedgedriver.exe</msg>
-<status status="PASS" starttime="20230809 15:43:18.277" endtime="20230809 15:43:24.493"/>
+<robot generator="Robot 6.1.1 (Python 3.11.4 on win32)" generated="20230813 20:23:58.564" rpa="false" schemaversion="4">
+<suite id="s1" name="Test3" source="C:\Users\hp\Desktop\pipline\test3.robot">
+<test id="s1-t1" name="Run Java Application Test" line="6">
+<kw name="Set Variable" library="BuiltIn">
+<var>${jar_path}</var>
+<arg>C:/Users/hp/Desktop/piplinev0/target/devops-pipeline.jar</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230813 20:23:58.589" level="INFO">${jar_path} = C:/Users/hp/Desktop/piplinev0/target/devops-pipeline.jar</msg>
+<status status="PASS" starttime="20230813 20:23:58.589" endtime="20230813 20:23:58.589"/>
 </kw>
-<kw name="Sleep" library="BuiltIn">
-<arg>2s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<msg timestamp="20230809 15:43:26.493" level="INFO">Slept 2 seconds</msg>
-<status status="PASS" starttime="20230809 15:43:24.493" endtime="20230809 15:43:26.493"/>
+<kw name="Set Variable" library="BuiltIn">
+<var>${java_file}</var>
+<arg>C:/Users/hp/Desktop/piplinev0/src/main/java/com/example/MainClass.java</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230813 20:23:58.589" level="INFO">${java_file} = C:/Users/hp/Desktop/piplinev0/src/main/java/com/example/MainClass.java</msg>
+<status status="PASS" starttime="20230813 20:23:58.589" endtime="20230813 20:23:58.589"/>
 </kw>
-<kw name="Get Text" library="SeleniumLibrary">
-<var>${greeting}</var>
-<arg>xpath=//div[@id="Greetings"]/h1</arg>
-<doc>Returns the text value of the element identified by ``locator``.</doc>
-<msg timestamp="20230809 15:43:26.592" level="INFO">${greeting} = Hello, World!</msg>
-<status status="PASS" starttime="20230809 15:43:26.493" endtime="20230809 15:43:26.592"/>
+<kw name="Run Process" library="Process">
+<arg>javac</arg>
+<arg>${java_file}</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20230813 20:23:58.589" level="INFO">Starting process:
+javac C:/Users/hp/Desktop/piplinev0/src/main/java/com/example/MainClass.java</msg>
+<msg timestamp="20230813 20:23:58.595" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20230813 20:23:59.215" level="INFO">Process completed.</msg>
+<status status="PASS" starttime="20230813 20:23:58.589" endtime="20230813 20:23:59.215"/>
 </kw>
-<kw name="Should Be Equal" library="BuiltIn">
-<arg>${greeting}</arg>
-<arg>Hello, World!</arg>
-<doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" starttime="20230809 15:43:26.592" endtime="20230809 15:43:26.592"/>
+<kw name="Run Process" library="Process">
+<var>${result}</var>
+<arg>java</arg>
+<arg>-cp</arg>
+<arg>${jar_path}</arg>
+<arg>com.example.MainClass</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20230813 20:23:59.215" level="INFO">Starting process:
+java -cp C:/Users/hp/Desktop/piplinev0/target/devops-pipeline.jar com.example.MainClass</msg>
+<msg timestamp="20230813 20:23:59.226" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20230813 20:23:59.365" level="INFO">Process completed.</msg>
+<msg timestamp="20230813 20:23:59.365" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20230813 20:23:59.215" endtime="20230813 20:23:59.365"/>
 </kw>
-<kw name="Close Browser" library="SeleniumLibrary">
-<doc>Closes the current browser.</doc>
-<status status="PASS" starttime="20230809 15:43:26.592" endtime="20230809 15:43:28.835"/>
+<kw name="Set Variable" library="BuiltIn">
+<var>${output}</var>
+<arg>${result.stdout.strip()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230813 20:23:59.375" level="INFO">${output} = Hello,World!</msg>
+<status status="PASS" starttime="20230813 20:23:59.374" endtime="20230813 20:23:59.375"/>
 </kw>
-<status status="PASS" starttime="20230809 15:43:18.277" endtime="20230809 15:43:28.836"/>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${output}</arg>
+<arg>Hello,World!</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20230813 20:23:59.375" endtime="20230813 20:23:59.375"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Captured Output: ${output}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230813 20:23:59.376" level="INFO">Captured Output: Hello,World!</msg>
+<status status="PASS" starttime="20230813 20:23:59.376" endtime="20230813 20:23:59.376"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Expected Output: Hello,World!</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230813 20:23:59.376" level="INFO">Expected Output: Hello,World!</msg>
+<status status="PASS" starttime="20230813 20:23:59.376" endtime="20230813 20:23:59.376"/>
+</kw>
+<status status="PASS" starttime="20230813 20:23:58.589" endtime="20230813 20:23:59.376"/>
 </test>
-<status status="PASS" starttime="20230809 15:43:17.923" endtime="20230809 15:43:28.836"/>
+<status status="PASS" starttime="20230813 20:23:58.566" endtime="20230813 20:23:59.376"/>
 </suite>
 <statistics>
 <total>
@@ -46,10 +76,9 @@
 <tag>
 </tag>
 <suite>
-<stat pass="1" fail="0" skip="0" id="s1" name="Test">Test</stat>
+<stat pass="1" fail="0" skip="0" id="s1" name="Test3">Test3</stat>
 </suite>
 </statistics>
 <errors>
-<msg timestamp="20230809 15:43:19.157" level="WARN">Incompatible release of msedgedriver (version 115.0.1901.183) detected in PATH: C:\Users\hp\Desktop\pipline\msedgedriver.exe</msg>
 </errors>
 </robot>
