@@ -36,6 +36,9 @@
              <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+               <configuration>
+                <mainClass>com.example.MainClass</mainClass>
+               </configuration>
             </plugin>
         </plugins>
         <finalName> devops-pipline </finalName>
