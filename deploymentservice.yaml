@@ -15,7 +15,7 @@ spec:
       containers:
         - name: spring-boot-k8s
           image: chayma14/devops-pipline
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
 ---
