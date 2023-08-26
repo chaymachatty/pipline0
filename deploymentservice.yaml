@@ -15,6 +15,9 @@ spec:
       - name: java-app
         image: chayma14/devops-pipline
         resources:
+          requests:
+            memory: "64Mi"  # Lower memory request to avoid resource constraints
+            cpu: "100m"     # Lower CPU request
           limits:
             memory: "128Mi"
             cpu: "500m"
@@ -32,4 +35,5 @@ spec:
   ports:
   - port: 8080
     targetPort: 8080
-type: NodePort
+  type: NodePort
+
