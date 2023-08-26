@@ -11,17 +11,17 @@ spec:
       labels:
         app: java-app
     spec:
-      restartPolicy: Never 
       containers:
       - name: java-app
-        image: chayma14/devops-pipline
+        image: chayma14/devops-pipeline
         resources:
           requests:
-            memory: "64Mi"  # Lower memory request to avoid resource constraints
-            cpu: "100m"     # Lower CPU request
+            memory: "64Mi"
+            cpu: "100m"
           limits:
             memory: "128Mi"
             cpu: "500m"
+        restartPolicy: Never  # This line specifies restart policy for the Pod
         ports:
         - containerPort: 8080
 
@@ -37,4 +37,3 @@ spec:
   - port: 8080
     targetPort: 8080
   type: NodePort
-
