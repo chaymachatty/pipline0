@@ -11,6 +11,7 @@ spec:
       labels:
         app: java-app
     spec:
+      restartPolicy: Never 
       containers:
       - name: java-app
         image: chayma14/devops-pipline
