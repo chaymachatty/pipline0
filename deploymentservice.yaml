@@ -21,7 +21,7 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "500m"
-        restartPolicy: Never  # This line specifies restart policy for the Pod
+        restartPolicy: Never
         ports:
         - containerPort: 8080
 
