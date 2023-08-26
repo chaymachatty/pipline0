@@ -21,10 +21,8 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "500m"
-        restartPolicy: Never
         ports:
         - containerPort: 8080
-
 ---
 apiVersion: v1
 kind: Service
