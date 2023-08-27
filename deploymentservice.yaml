@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: java-app
 spec:
+  strategy:
+    type: Recreate  # Change the deployment strategy to Recreate
   selector:
     matchLabels:
       app: java-app
@@ -11,7 +13,6 @@ spec:
       labels:
         app: java-app
     spec:
-      restartPolicy: Never
       containers:
       - name: java-app
         image: chayma14/devops-pipeline
@@ -36,4 +37,4 @@ spec:
   ports:
   - port: 8080
     targetPort: 8080
-  type: NodePort
+    type: NodePort
