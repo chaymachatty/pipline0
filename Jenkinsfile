@@ -99,7 +99,7 @@ stage("Build Project Again") {
         stage('Deploy to k8s'){
             steps{
                 script{
-                    kubernetesDeploy configs: 'deploymentservice.yaml', kubeconfigId: 'd3'
+                    kubernetesDeploy configs: 'deploymentservice.yaml', kubeconfigId: 'd4'
         }
     
 
