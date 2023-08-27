@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: java-app
-        image: chayma14/devops-pipeline
+        image: chayma14/devops-pipline
         resources:
           requests:
             memory: "64Mi"
