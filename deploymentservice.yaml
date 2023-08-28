@@ -32,3 +32,5 @@ spec:
       containers:
         - name: java-app
           image: chayma14/devops-piplinevf:latest
+          ports:
+          - containerPort: 8010
