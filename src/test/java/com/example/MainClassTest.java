@@ -1,14 +1,14 @@
 package com.example;
 
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class MainClassTest {
 
     @Test
     public void testGetGreeting() {
-        String expected = "Hello,World!";
-        String actual = MainClass.getGreeting();
-        assertEquals(expected, actual);
+        GreetingController controller = new GreetingController();
+        String greeting = controller.getGreeting();
+        assertEquals("Hello, World!", greeting);
     }
 }

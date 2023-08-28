@@ -12,44 +12,55 @@
     <!-- Configuration du projet -->
     <properties>
        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <!-- Utilisez une version compatible avec Maven 3.9.9 -->
-          <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version> 
+       <maven.compiler.target>1.8</maven.compiler.target>
+       <!-- Utilisez une version compatible avec Maven 3.9.9 -->
+       <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+       <!-- Utilisez la version de Spring Boot compatible -->
+       <spring-boot.version>2.5.4</spring-boot.version>
     </properties>
-     <dependencies>
-        <!-- Add the JUnit dependency -->
+    
+    <dependencies>
+        <!-- Ajoutez la dépendance JUnit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
+        <!-- Ajoutez la dépendance Spring Boot Starter Web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
     </dependencies>
 
-<build>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>${maven.compiler.plugin.version}</version>
-        </plugin>
-        <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-            <version>2.5.4</version>
-            <configuration>
-                <mainClass>com.example.MainClass</mainClass>
-            </configuration>
-            <executions>
-                <execution>
-                    <goals>
-                        <goal>repackage</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-    </plugins>
-    <finalName>piplinevf</finalName>
-</build>
+    <build>
+        <plugins>
+            <!-- Plugin de compilation Maven -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+            </plugin>
+            <!-- Plugin Spring Boot Maven -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <configuration>
+                    <mainClass>com.example.MainClass</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <finalName>myapp</finalName>
+    </build>
 
 </project>

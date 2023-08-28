@@ -1,18 +1,23 @@
 package com.example;
-public class MainClass {
-    public static String getGreeting() {
-        return "Hello,World!";
-    }
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+public class MainClass {
     public static void main(String[] args) {
-        while (true) {
-            System.out.println(getGreeting());
-            try {
-                Thread.sleep(5000); // Print every 5 seconds
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        SpringApplication.run(MainClass.class, args);
     }
 }
+
+@RestController
+class GreetingController {
+    @GetMapping("/greeting")
+    public String getGreeting() {
+        return "Hello, World!";
+    }
+}
+
 

@@ -1,4 +1,15 @@
-FROM openjdk:8
-EXPOSE 8010
-COPY target/piplinevf.jar piplinevf.jar
-ENTRYPOINT ["java", "-jar", "/piplinevf.jar"]
+# Use the official Spring Boot base image
+FROM openjdk:11-jre-slim
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the compiled JAR file to the container
+COPY target/myapp.jar .
+
+# Expose the port the app runs on
+EXPOSE 8083
+
+# Run the Spring Boot application
+CMD ["java", "-jar", "myapp.jar"]
+

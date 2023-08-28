@@ -10,8 +10,8 @@ spec:
     app: java-app
   ports:
     - protocol: TCP
-      port: 8010
-      targetPort: 8010
+      port: 8083
+      targetPort: 8083
 
 ---
 apiVersion: apps/v1
@@ -32,4 +32,4 @@ spec:
         - name: java-app
           image: chayma14/devops-piplinevf:latest
           ports:
-            - containerPort: 8010
+            - containerPort: 8083
