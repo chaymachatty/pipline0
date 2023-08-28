@@ -30,6 +30,6 @@ spec:
     spec:
       containers:
         - name: java-app
-          image: chayma14/devops-piplinevf:latest
+          image: chayma14/my-java-app:latest
           ports:
             - containerPort: 8083

@@ -91,8 +91,8 @@ stage("Build Project Again") {
                     withCredentials([usernamePassword(credentialsId:'chayma14', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         bat "docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%"
                     }
-                    bat "docker tag $DOCKER_USERNAME/my-java-app $DOCKER_USERNAME//my-java-app:latest"
-                    bat "docker push $DOCKER_USERNAME//my-java-app:latest"
+                    bat "docker tag $DOCKER_USERNAME/my-java-app $DOCKER_USERNAME/my-java-app:latest"
+                    bat "docker push $DOCKER_USERNAME/my-java-app:latest"
                 }
             }
         }
