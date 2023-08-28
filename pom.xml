@@ -49,7 +49,7 @@
             </executions>
         </plugin>
     </plugins>
-    <finalName>devops-pipline</finalName>
+    <finalName>piplinevf</finalName>
 </build>
 
 </project>

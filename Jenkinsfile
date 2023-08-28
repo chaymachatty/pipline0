@@ -80,7 +80,7 @@ stage("Build Project Again") {
           stage('Build docker image') {
             steps {
                 script {
-                    bat 'docker build -t chayma14/devops-pipline .'
+                    bat 'docker build -t chayma14/devops-piplinevf .'
                 }
             }
         }
@@ -91,8 +91,8 @@ stage("Build Project Again") {
                     withCredentials([usernamePassword(credentialsId:'chayma14', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         bat "docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%"
                     }
-                    bat "docker tag $DOCKER_USERNAME/devops-pipline $DOCKER_USERNAME/devops-pipline:latest"
-                    bat "docker push $DOCKER_USERNAME/devops-pipline:latest"
+                    bat "docker tag $DOCKER_USERNAME/devops-piplinevf $DOCKER_USERNAME/devops-piplinevf:latest"
+                    bat "docker push $DOCKER_USERNAME/devops-piplinevf:latest"
                 }
             }
         }

@@ -1,4 +1,4 @@
 FROM openjdk:8
-EXPOSE 8080
-COPY target/devops-pipline.jar devops-pipline.jar
-ENTRYPOINT ["java", "-jar", "/devops-pipline.jar"]
+EXPOSE 8010
+COPY target/piplinevf.jar piplinevf.jar
+ENTRYPOINT ["java", "-jar", "/piplinevf.jar"]
